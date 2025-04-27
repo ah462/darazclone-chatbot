@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Daraz Clone with Category Pages</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            position: relative;
+            min-height: 100vh;
+            padding-bottom: 150px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* --- Top Bar --- */
+        .top-bar {
+            background-color: #f1f1f1;
+            padding: 5px 0;
+            font-size: 12px;
+            color: #555;
+        }
+
+        .top-bar-content {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .top-bar a {
+            color: #555;
+            text-decoration: none;
+            margin-left: 15px;
+            padding: 2px 0;
+        }
+
+        .top-bar a:hover {
+            color: #f85606;
+        }
+
+        /* Header */
+        header.main-header {
+            background-color: #f85606;
+            color: white;
+            padding: 10px 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            display: block;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            margin: 0 25px;
+            position: relative;
+            display: flex;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 3px 0 0 3px;
+            font-size: 14px;
+        }
+
+        .search-bar button {
+            background-color: #f57224;
+            border: none;
+            color: white;
+            padding: 0 15px;
+            border-radius: 0 3px 3px 0;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-bar button i {
+            font-size: 18px;
+        }
+
+        .search-bar button:hover {
+            background-color: #e04a00;
+        }
+
+        .nav-icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-icons a {
+            color: white;
+            margin: 0 12px;
+            text-decoration: none;
+            font-size: 14px;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-icons a i {
+            margin-right: 4px;
+            font-size: 18px;
+        }
+
+        .nav-icons a:hover {
+            opacity: 0.9;
+        }
+
+        /* Navbar */
+        nav {
+            background-color: #fff;
+            padding: 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            padding: 10px 0;
+            align-items: center;
+            margin: 0;
+        }
+
+        nav ul li {
+            margin: 0 5px;
+            position: relative;
+            padding: 0;
+        }
+
+        nav ul li>a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            padding: 5px 8px;
+            display: block;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        nav ul li>a:hover {
+            color: #f85606;
+        }
+
+        /* --- Category Dropdown Styles --- */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 250px;
+            box-shadow: 0 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            padding: 12px 0;
+            border-radius: 0 0 4px 4px;
+            border: 1px solid #eee;
+            border-top: none;
+            left: 0;
+            top: 100%;
+            margin-top: 0;
+            list-style: none;
+        }
+
+        .dropdown-content li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .dropdown-content a {
+            color: #555;
+            padding: 8px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 13px;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f0f0f0;
+            color: #f85606;
+        }
+
+        nav ul li:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .banner {
+            display: flex;
+            margin-bottom: 25px;
+            overflow: hidden;
+            max-height: 350px;
+            border-radius: 4px;
+        }
+
+        .banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- Service Links Section --- */
+        .service-links {
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .service-link-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #333;
+            font-size: 12px;
+            padding: 5px 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .service-link-item .icon-placeholder {
+            width: 40px;
+            height: 40px;
+            background-color: #f0f0f0;
+            border-radius: 50%;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #aaa;
+        }
+
+        .service-link-item:hover {
+            color: #f85606;
+        }
+
+        .service-link-item:hover .icon-placeholder {
+            background-color: #ffe8d9;
+        }
+
+        /* Section Title Styling */
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #f85606;
+            display: inline-block;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .product-card {
+            border: 1px solid #eee;
+            padding: 0;
+            text-align: left;
+            background-color: #fff;
+            border-radius: 4px;
+            transition: box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-color: #ddd;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            margin-bottom: 0;
+            display: block;
+        }
+
+        .product-card .product-info {
+            padding: 10px 12px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-card h3 {
+            font-size: 14px;
+            line-height: 1.3;
+            color: #333;
+            height: 36px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            margin: 0 0 5px 0;
+        }
+
+        .product-card .price-container {
+            margin-top: 8px;
+            margin-bottom: 5px;
+        }
+
+        .product-card p.product-price {
+            color: #f85606;
+            font-weight: 600;
+            font-size: 16px;
+            margin: 0;
+            line-height: 1;
+        }
+
+        .product-original-price {
+            font-size: 12px;
+            color: #9e9e9e;
+            text-decoration: line-through;
+            margin-left: 5px;
+        }
+
+        .product-rating {
+            font-size: 12px;
+            color: #ffc107;
+            margin-top: auto;
+        }
+
+        .product-rating .rating-count {
+            color: #9e9e9e;
+            margin-left: 4px;
+        }
+
+        /* --- Categories Section --- */
+        .categories-section {
+            background-color: #fff;
+            padding: 20px 15px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 15px;
+        }
+
+        .category-item {
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .category-item .icon-placeholder {
+            width: 60px;
+            height: 60px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            margin: 0 auto 8px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #aaa;
+        }
+
+        .category-item:hover {
+            color: #f85606;
+        }
+
+        .category-item:hover .icon-placeholder {
+            background-color: #ffe8d9;
+        }
+
+        /* --- DarazMall Section --- */
+        .darazmall-section {
+            background: linear-gradient(to right, #e1f5fe, #b3e5fc);
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            text-align: center;
+            color: #01579b;
+        }
+
+        .darazmall-section h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .darazmall-section p {
+            font-size: 14px;
+        }
+
+        /* --- Product Details Display Area --- */
+        #category-product-display {
+            background-color: #fff;
+            padding: 20px;
+            margin-top: 20px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            min-height: 200px;
+        }
+
+        #category-product-display h2 {
+            font-size: 22px;
+            color: #f85606;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        #category-product-display .product-detail-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #eee;
+        }
+
+        #category-product-display .product-detail-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        #category-product-display .product-detail-item h3 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        #category-product-display .product-detail-item p {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        #category-product-display .product-detail-item .price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #f85606;
+        }
+
+        #category-product-display .product-detail-item .benefits {
+            font-size: 14px;
+            color: #007bff;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #fff;
+            color: #555;
+            padding: 40px 0;
+            text-align: left;
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-column h4 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #555;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .footer-column ul li a:hover {
+            color: #f85606;
+            text-decoration: underline;
+        }
+
+        .footer-icons-placeholder {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+            align-items: center;
+        }
+
+        .footer-icons-placeholder img {
+            height: 25px;
+            width: auto;
+            vertical-align: middle;
+        }
+
+        .footer-social-icons img {
+            height: 30px;
+            width: auto;
+            border-radius: 50%;
+        }
+
+        .footer-verified-badge img {
+            height: 40px;
+            width: auto;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-content">
+                <a href="#">Save More on App</a>
+                <a href="#">Sell on Daraz</a>
+                <a href="#">Customer Care</a>
+                <a href="#">Track My Order</a>
+            </div>
+        </div>
+    </div>
+
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="https://icms-image.slatic.net/images/ims-web/5b3e4c9d-9df4-4d80-a716-6b90980311ab.png"
+                        alt="Daraz Logo">
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search in Daraz">
+                    <button type="submit" aria-label="Search"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="nav-icons">
+                    <a href="#" id="login-link"><i class="fas fa-user"></i>Login</a>
+                    <a href="#" id="signup-link">Sign Up</a>
+                    <a href="#">Sell on Daraz</a>
+                    <a href="#" id="cart-link"><i class="fas fa-shopping-cart"></i>Cart</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li>
+                    <a onclick="openCategoryPage('Electronic Devices')">Electronic Devices</a>
+                    <ul class="dropdown-content">
+                        <li><a href="#" data-category="Electronics" data-subcategory="Mobiles">Mobiles</a></li>
+                        <li><a href="#" data-category="Electronics" data-subcategory="Laptops">Laptops</a></li>
+                        <li><a href="#" data-category="Electronics" data-subcategory="Tablets">Tablets</a></li>
+                        <li><a href="#" data-category="Electronics" data-subcategory="Desktops">Desktops</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a onclick="openCategoryPage('Electronic Accessories')">Electronic Accessories</a>
+                    <ul class="dropdown-content">
+                        <li><a href="#" data-category="Electronics" data-subcategory="Headphones & Earphones">Headphones
+                                & Earphones</a></li>
+                        <li><a href="#" data-category="Electronics" data-subcategory="Power Banks">Power Banks</a></li>
+                        <li><a href="#" data-category="Electronics" data-subcategory="Cables & Converters">Cables &
+                                Converters</a></li>
+                        <li><a href="#" data-category="Electronics" data-subcategory="Batteries">Batteries</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a onclick="openCategoryPage('TV & Home Appliances')">TV & Home Appliances</a>
+                    <ul class="dropdown-content">
+                        <li><a href="#" data-category="Home Appliances" data-subcategory="Televisions">Televisions</a>
+                        </li>
+                        <li><a href="#" data-category="Home Appliances" data-subcategory="Air Conditioners">Air
+                                Conditioners</a></li>
+                        <li><a href="#" data-category="Home Appliances"
+                                data-subcategory="Refrigerators">Refrigerators</a></li>
+                        <li><a href="#" data-category="Home Appliances" data-subcategory="Washing Machines">Washing
+                                Machines</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a onclick="openCategoryPage('Health & Beauty')" id="beauty-link">Health & Beauty</a>
+                    <ul class="dropdown-content">
+                        <li><a href="#" data-category="Health & Beauty" data-subcategory="Skincare">Skincare</a></li>
+                        <li><a href="#" data-category="Health & Beauty" data-subcategory="Makeup">Makeup</a></li>
+                        <li><a href="#" data-category="Health & Beauty" data-subcategory="Haircare">Haircare</a></li>
+                        <li><a href="#" data-category="Health & Beauty" data-subcategory="Fragrances">Fragrances</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a onclick="openCategoryPage('Babies & Toys')">Babies & Toys</a></li>
+                <li><a onclick="openCategoryPage('Groceries & Pets')">Groceries & Pets</a></li>
+                <li>
+                    <a onclick="openCategoryPage('Home & Lifestyle')" id="home-living-link">Home & Lifestyle</a>
+                    <ul class="dropdown-content">
+                        <li><a href="#" data-category="Home & Lifestyle" data-subcategory="Home Decor">Home Decor</a>
+                        </li>
+                        <li><a href="#" data-category="Home & Lifestyle" data-subcategory="Furniture">Furniture</a></li>
+                        <li><a href="#" data-category="Home & Lifestyle" data-subcategory="Kitchen & Dining">Kitchen &
+                                Dining</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a onclick="openCategoryPage('Women\'s Fashion')" id="fashion-link">Women's Fashion</a>
+                    <ul class="dropdown-content">
+                        <li><a href="#" data-category="Fashion" data-subcategory="Dresses">Dresses</a></li>
+                        <li><a href="#" data-category="Fashion" data-subcategory="Tops & Tees">Tops & Tees</a></li>
+                        <li><a href="#" data-category="Fashion" data-subcategory="Ethnic Wear">Ethnic Wear</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a onclick="openCategoryPage('Men\'s Fashion')">Men's Fashion</a>
+                    <ul class="dropdown-content">
+                        <li><a href="#" data-category="Fashion" data-subcategory="Shirts">Shirts</a></li>
+                        <li><a href="#" data-category="Fashion" data-subcategory="Pants">Pants</a></li>
+                        <li><a href="#" data-category="Fashion" data-subcategory="Jackets & Coats">Jackets & Coats</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a onclick="openCategoryPage('Watches & Accessories')">Watches & Accessories</a>
+                    <ul class="dropdown-content">
+                        <li><a href="#" data-category="Fashion" data-subcategory="Watches">Watches</a></li>
+                        <li><a href="#" data-category="Fashion" data-subcategory="Jewelry">Jewelry</a></li>
+                        <li><a href="#" data-category="Fashion" data-subcategory="Bags & Wallets">Bags & Wallets</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a onclick="openCategoryPage('Sports & Outdoor')" id="sports-link">Sports & Outdoor</a></li>
+                <li><a onclick="openCategoryPage('Automotive & Motorbike')">Automotive & Motorbike</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content container">
+        <div class="banner">
+            <img src="https://laz-img-cdn.alicdn.com/images/ims-web/TB1vgjoJkzoK1RjSZFlXXai4VXa.jpg"
+                alt="Daraz Promotion Banner">
+        </div>
+
+        <section class="service-links">
+            <div class="service-link-item" onclick="openServicePage('Mart')">
+                <div class="icon-placeholder">???</div>
+                <span>Mart</span>
+            </div>
+            <div class="service-link-item" onclick="openServicePage('Fashion')">
+                <div class="icon-placeholder">??</div>
+                <span>Fashion</span>
+            </div>
+            <div class="service-link-item" onclick="openServicePage('Beauty')">
+                <div class="icon-placeholder">??</div>
+                <span>Beauty</span>
+            </div>
+            <div class="service-link-item" onclick="openServicePage('Home Decor')">
+                <div class="icon-placeholder">??</div>
+                <span>Home Decor</span>
+            </div>
+            <div class="service-link-item" onclick="openServicePage('Mobiles')">
+                <div class="icon-placeholder">??</div>
+                <span>Mobiles</span>
+            </div>
+            <div class="service-link-item" onclick="openServicePage('Free Delivery')">
+                <div class="icon-placeholder">??</div>
+                <span>Free Delivery</span>
+            </div>
+            <div class="service-link-item" onclick="openServicePage('Authentic Brands')">
+                <div class="icon-placeholder">??</div>
+                <span>Authentic Brands</span>
+            </div>
+        </section>
+
+        <section class="darazmall-section">
+            <h3>DarazMall</h3>
+            <p>Discover 100% Authentic Brands</p>
+        </section>
+
+        <section id="category-product-display">
+            <h2>Select a Category to See Details</h2>
+        </section>
+
+        <section class="product-section">
+            <h2 class="section-title">Flash Sale</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="https://media.naheed.pk/catalog/product/cache/57044254b6ba66615c533891fd7cf70f/1/2/1296754-1.jpg"
+                        alt="Product 1">
+                    <div class="product-info">
+                        <h3>Smartphone Example Model XYZ - 128GB - New Edition</h3>
+                        <div class="price-container">
+                            <p class="product-price">PKR 29,999 <span class="product-original-price">PKR 35,000</span>
+                            </p>
+                        </div>
+                        <div class="product-rating">
+                            ????? <span class="rating-count">(120)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://cdn.mos.cms.futurecdn.net/UbMJMVGeKd2UvjMvkZZPX6.jpg" alt="Product 2">
+                    <div class="product-info">
+                        <h3>Laptop Pro Series 14 inch - Core i5 - 8GB RAM</h3>
+                        <div class="price-container">
+                            <p class="product-price">PKR 89,999</p>
+                        </div>
+                        <div class="product-rating">
+                            ????? <span class="rating-count">(45)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://m.media-amazon.com/images/I/71Hx8b6HGbL._AC_SL1500_.jpg" alt="Product 3">
+                    <div class="product-info">
+                        <h3>Wireless Noise Cancelling Headphones - Bluetooth 5.0</h3>
+                        <div class="price-container">
+                            <p class="product-price">PKR 4,999 <span class="product-original-price">PKR 6,500</span></p>
+                        </div>
+                        <div class="product-rating">
+                            ????? <span class="rating-count">(210)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://zerolifestyle.co/cdn/shop/files/Black01Updated.webp?v=1732197295" alt="Product 4">
+                    <div class="product-info">
+                        <h3>Smart Watch Fitness Tracker - Black - Waterproof IP68</h3>
+                        <div class="price-container">
+                            <p class="product-price">PKR 9,999 <span class="product-original-price">PKR 12,000</span>
+                            </p>
+                        </div>
+                        <div class="product-rating">
+                            ????? <span class="rating-count">(88)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://i5.walmartimages.com/seo/JoyTable-Stainless-Steel-Cooking-Utensil-Set-Non-Stick-Cookware-Set-24pc-Heat-Resistant-Nylon-Kitchen-Accessories-Black_39b4ddd5-99a4-4326-8bd9-957ff07174ad.658924aa912732f30dae738da46c09ad.jpeg"
+                        alt="Product 5">
+                    <div class="product-info">
+                        <h3>Kitchen Utensil Set - 24pc Non-Stick Nylon</h3>
+                        <div class="price-container">
+                            <p class="product-price">PKR 1,499 <span class="product-original-price">PKR 1,999</span></p>
+                        </div>
+                        <div class="product-rating">
+                            ????? <span class="rating-count">(30)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://www.kayazar.com/images/product_gallery/1653605392_Pack-of-5-kayazar-TShirt-Deal-044.webp"
+                        alt="Product 6">
+                    <div class="product-info">
+                        <h3>Pack of 5 Men's T-Shirts - Multi Color Cotton</h3>
+                        <div class="price-container">
+                            <p class="product-price">PKR 1,999 <span class="product-original-price">PKR 2,500</span></p>
+                        </div>
+                        <div class="product-rating">
+                            ????? <span class="rating-count">(55)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="categories-section">
+            <h2 class="section-title">Categories</h2>
+            <div class="category-grid">
+                <div class="category-item" onclick="openCategoryPage('Mobiles')">
+                    <div class="icon-placeholder">??</div>
+                    <span>Mobiles</span>
+                </div>
+                <div class="category-item" onclick="openCategoryPage('Laptops')">
+                    <div class="icon-placeholder">??</div>
+                    <span>Laptops</span>
+                </div>
+                <div class="category-item" onclick="openCategoryPage('LED TVs')">
+                    <div class="icon-placeholder">??</div>
+                    <span>LED TVs</span>
+                </div>
+                <div class="category-item" onclick="openCategoryPage('Audio')">
+                    <div class="icon-placeholder">??</div>
+                    <span>Audio</span>
+                </div>
+                <div class="category-item" onclick="openCategoryPage('Cameras')">
+                    <div class="icon-placeholder">??</div>
+                    <span>Cameras</span>
+                </div>
+                <div class="category-item" onclick="openCategoryPage('Men\'s Fashion')">
+                    <div class="icon-placeholder">??</div>
+                    <span>Men's Fashion</span>
+                </div>
+                <div class="category-item" onclick="openCategoryPage('Women\'s Fashion')">
+                    <div class="icon-placeholder">??</div>
+                    <span>Women's Fashion</span>
+                </div>
+                <div class="category-item" onclick="openCategoryPage('Shoes')">
+                    <div class="icon-placeholder">??</div>
+                    <span>Shoes</span>
+                </div>
+                <div class="category-item" onclick="openCategoryPage('Furniture')">
+                    <div class="icon-placeholder">???</div>
+                    <span>Furniture</span>
+                </div>
+                <div class="category-item" onclick="openCategoryPage('Kitchen')">
+                    <div class="icon-placeholder">??</div>
+                    <span>Kitchen</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>Customer Care</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">How to Buy</a></li>
+                        <li><a href="#">Corporate & Bulk Purchasing</a></li>
+                        <li><a href="#">Returns & Refunds</a></li>
+                        <li><a href="#">Daraz Shop</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Purchase Protection</a></li>
+                        <li><a href="#">Daraz Pick up Points</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Daraz</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Digital Payments</a></li>
+                        <li><a href="#">Daraz Donates</a></li>
+                        <li><a href="#">Daraz Blog</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Online Shopping App</a></li>
+                        <li><a href="#">Online Grocery Shopping</a></li>
+                        <li><a href="#">Daraz Exclusive</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Make Money With Us</h4>
+                    <ul>
+                        <li><a href="#">Sell on Daraz</a></li>
+                        <li><a href="#">Code of Conduct</a></li>
+                        <li><a href="#">Join Daraz Affiliate Program</a></li>
+                    </ul>
+                    <h4 style="margin-top: 20px;">Payment Methods</h4>
+                    <div class="footer-icons-placeholder">
+                        <img src="https://www.pngplay.com/wp-content/uploads/12/Visa-Card-Logo-PNG-Clipart-Background.png"
+                            alt="Visa">
+                        <img src="https://images.seeklogo.com/logo-png/8/2/master-card-logo-png_seeklogo-89117.png"
+                            alt="MasterCard">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQ0ct8Xk5qWY6m44SyMKzbtsKGIAuRecGW4780DRkgIA&s&ec=72940544"
+                            alt="JazzCash">
+                        <img src="https://crystalpng.com/wp-content/uploads/2024/10/Easypaisa-logo.png" alt="Easypaisa">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7evQb3zV4UKRX5cPTDQ2iaVWvOfvfflvXz07YcINYXw&s&ec=72940544"
+                            alt="Cash on Delivery">
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Follow Us</h4>
+                    <div class="footer-icons-placeholder footer-social-icons">
+                        <a href="#"><img
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk0zO9ushr0LaDt-QmMwiFfO3-blS_ybUZSMnlniArJw&s&ec=72940544"
+                                alt="Facebook"></a>
+                        <a href="#"><img
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAByo1ycmb_W1D1BUHpMT0mluH7DsGkt-0zz9VtxgWlQ&s&ec=72940544"
+                                alt="Twitter"></a>
+                        <a href="#"><img
+                                src="https://img.freepik.com/premium-vector/instagram-icon_768467-672.jpg?semt=ais_hybrid&w=740"
+                                alt="Instagram"></a>
+                        <a href="#"><img src="https://cdn.worldvectorlogo.com/logos/youtube-icon-5.svg"
+                                alt="YouTube"></a>
+                    </div>
+                    <h4 style="margin-top: 20px;">Verified By</h4>
+                    <div class="footer-icons-placeholder footer-verified-badge">
+                        <img src="https://media.licdn.com/dms/image/v2/D4D0BAQHGIig_0IsKow/company-logo_200_200/company-logo_200_200/0/1729008508396/verifiedrecorder_logo?e=2147483647&v=beta&t=upjdA3QNrpWMs2gnNiXS8gPkkQUVJUdkeJ_R_R1RXco"
+                            alt="Verified By">
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © Daraz Clone Style 2025. All Rights Reserved. (This is an enhanced template, not the actual site)
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- Category/Subcategory Data ---
+        const categoryData = {
+            "Electronic Devices": {
+                subcategories: ["Mobiles", "Laptops", "Tablets", "Desktops"],
+                products: {
+                    "Mobiles": [
+                        {name: "Smartphone A", price: "PKR 50,000", details: "6.5 inch display, 128GB storage, 48MP camera", benefits: "Free case and screen protector"},
+                        {name: "Smartphone B", price: "PKR 75,000", details: "6.7 inch AMOLED, 256GB storage, 108MP camera", benefits: "1-year warranty, Fast charger included"}
+                    ],
+                    "Laptops": [
+                        {name: "Laptop P", price: "PKR 120,000", details: "14 inch, Core i7, 16GB RAM, 512GB SSD", benefits: "Lightweight, Includes laptop bag"},
+                        {name: "Laptop Q", price: "PKR 80,000", details: "15.6 inch, Core i5, 8GB RAM, 256GB SSD", benefits: "Good for students, Extended battery"}
+                    ],
+                    "Tablets": [
+                        {name: "Tablet X", price: "PKR 30,000", details: "10.1 inch, 64GB storage", benefits: "Portable, Kid-friendly"}
+                    ],
+                    "Desktops": [
+                        {name: "Desktop Z", price: "PKR 150,000", details: "Core i9, 32GB RAM, 1TB SSD", benefits: "High performance, Ideal for gaming"}
+                    ]
+                }
+            },
+            "Electronic Accessories": {
+                subcategories: ["Headphones & Earphones", "Power Banks", "Cables & Converters", "Batteries"],
+                products: {
+                    "Headphones & Earphones": [
+                        {name: "Wireless Earbuds", price: "PKR 5,000", details: "Bluetooth 5.0, Noise Cancelling", benefits: "Long battery life"}
+                    ],
+                    "Power Banks": [
+                        {name: "10000mAh Power Bank", price: "PKR 2,500", details: "Fast charging, Dual USB", benefits: "Compact design"}
+                    ]
+                }
+            },
+            "TV & Home Appliances": {
+                subcategories: ["Televisions", "Air Conditioners", "Refrigerators", "Washing Machines"],
+                products: {
+                    "Televisions": [
+                        {name: "55 inch 4K TV", price: "PKR 90,000", details: "Smart LED, HDR", benefits: "Free wall mount"}
+                    ]
+                }
+            },
+            "Health & Beauty": {
+                subcategories: ["Skincare", "Makeup", "Haircare", "Fragrances"],
+                products: {
+                    "Skincare": [
+                        {name: "Vitamin C Serum", price: "PKR 2,500", details: "Brightens skin, reduces dark spots", benefits: "Natural ingredients, Dermatologist approved"}
+                    ],
+                    "Makeup": [
+                        {name: "Foundation", price: "PKR 3,000", details: "Matte finish, Long-lasting", benefits: "Suitable for all skin types"}
+                    ]
+                }
+            },
+            "Babies & Toys": {
+                subcategories: ["Toys", "Baby Gear"],
+                products: {
+                    "Toys": [
+                        {name: "Building Blocks", price: "PKR 1,500", details: "Educational, Colorful", benefits: "Safe for kids"}
+                    ]
+                }
+            },
+            "Groceries & Pets": {
+                subcategories: ["Groceries", "Pet Supplies"],
+                products: {
+                    "Groceries": [
+                        {name: "Rice 5kg", price: "PKR 1,000", details: "Premium quality", benefits: "Fast delivery"}
+                    ]
+                }
+            },
+            "Home & Lifestyle": {
+                subcategories: ["Home Decor", "Furniture", "Kitchen & Dining"],
+                products: {
+                    "Home Decor": [
+                        {name: "Wall Clock", price: "PKR 1,200", details: "Modern design, silent movement", benefits: "Enhances room aesthetics, Accurate time"}
+                    ],
+                    "Furniture": [
+                        {name: "Sofa Set", price: "PKR 50,000", details: "3-seater, Fabric", benefits: "Comfortable, Durable"}
+                    ]
+                }
+            },
+            "Women's Fashion": {
+                subcategories: ["Dresses", "Tops & Tees", "Ethnic Wear"],
+                products: {
+                    "Dresses": [
+                        {name: "Summer Dress", price: "PKR 3,500", details: "Floral print, lightweight fabric", benefits: "Perfect for hot weather, Comfortable fit"}
+                    ]
+                }
+            },
+            "Men's Fashion": {
+                subcategories: ["Shirts", "Pants", "Jackets & Coats"],
+                products: {
+                    "Shirts": [
+                        {name: "Formal Shirt", price: "PKR 2,000", details: "Cotton, Slim fit", benefits: "Breathable fabric"}
+                    ]
+                }
+            },
+            "Watches & Accessories": {
+                subcategories: ["Watches", "Jewelry", "Bags & Wallets"],
+                products: {
+                    "Watches": [
+                        {name: "Smart Watch", price: "PKR 10,000", details: "Fitness tracking, Waterproof", benefits: "Stylish design"}
+                    ]
+                }
+            },
+            "Sports & Outdoor": {
+                subcategories: ["Sports Equipment", "Outdoor Gear"],
+                products: {
+                    "Sports Equipment": [
+                        {name: "Cricket Bat", price: "PKR 5,000", details: "English Willow", benefits: "High quality, Durable"}
+                    ]
+                }
+            },
+            "Automotive & Motorbike": {
+                subcategories: ["Car Accessories", "Motorbike Parts"],
+                products: {
+                    "Car Accessories": [
+                        {name: "Car Air Freshener", price: "PKR 500", details: "Long-lasting scent", benefits: "Improves car ambiance"}
+                    ]
+                }
+            },
+            "Mart": {
+                subcategories: ["Groceries", "Household"],
+                products: {
+                    "Groceries": [
+                        {name: "Wheat Flour 10kg", price: "PKR 1,200", details: "High quality", benefits: "Essential for daily use"}
+                    ]
+                }
+            },
+            "Fashion": {
+                subcategories: ["Men's Fashion", "Women's Fashion"],
+                products: {
+                    "Women's Fashion": [
+                        {name: "Casual Top", price: "PKR 1,500", details: "Cotton blend, Comfortable", benefits: "Versatile style"}
+                    ]
+                }
+            },
+            "Beauty": {
+                subcategories: ["Skincare", "Makeup"],
+                products: {
+                    "Skincare": [
+                        {name: "Cleanser", price: "PKR 1,800", details: "Gentle formula", benefits: "Removes impurities"}
+                    ]
+                }
+            },
+            "Home Decor": {
+                subcategories: ["Wall Art", "Decor Items"],
+                products: {
+                    "Wall Art": [
+                        {name: "Canvas Painting", price: "PKR 3,000", details: "Abstract design", benefits: "Elevates room decor"}
+                    ]
+                }
+            },
+            "Mobiles": {
+                subcategories: ["Smartphones", "Feature Phones"],
+                products: {
+                    "Smartphones": [
+                        {name: "Smartphone C", price: "PKR 60,000", details: "6.4 inch, 128GB", benefits: "High performance"}
+                    ]
+                }
+            },
+            "Free Delivery": {
+                subcategories: ["Eligible Products"],
+                products: {
+                    "Eligible Products": [
+                        {name: "LED Bulb", price: "PKR 300", details: "Energy saving", benefits: "Free delivery on this item"}
+                    ]
+                }
+            },
+            "Authentic Brands": {
+                subcategories: ["Branded Products"],
+                products: {
+                    "Branded Products": [
+                        {name: "Branded Sunglasses", price: "PKR 4,000", details: "UV protection", benefits: "100% authentic"}
+                    ]
+                }
+            }
+        };
+
+        // --- Search Bar Alert ---
+        const searchInput = document.querySelector('.search-bar input');
+        const searchButton = document.querySelector('.search-bar button');
+
+        function performSearch() {
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm) {
+                alert('Searching for: ' + searchTerm);
+            } else {
+                alert('Please enter something to search.');
+            }
+        }
+
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        if (searchButton) {
+            searchButton.addEventListener('click', performSearch);
+        }
+
+        // --- Link Click Alerts ---
+        function addLinkAlert(linkId, message) {
+            const link = document.getElementById(linkId);
+            if (link && !link.closest('.dropdown-content')) {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    alert(message);
+                });
+            }
+        }
+
+        addLinkAlert('login-link', 'Login option clicked!');
+        addLinkAlert('signup-link', 'Sign Up option clicked!');
+        addLinkAlert('cart-link', 'Cart option clicked!');
+
+        // --- Display Product Details Function ---
+        const categoryProductDisplay = document.getElementById('category-product-display');
+
+        function displayProductDetails(subcategory) {
+            const products = Object.values(categoryData).flatMap(cat => cat.products[subcategory] || []).filter(Boolean);
+            let html = `<h2>Products in ${subcategory}</h2>`;
+
+            if (products.length > 0) {
+                products.forEach(product => {
+                    html += `
+                        <div class="product-detail-item">
+                            <h3>${product.name}</h3>
+                            <p>Details: ${product.details}</p>
+                            <p class="price">Price: ${product.price}</p>
+                            <p class="benefits">Benefits: ${product.benefits}</p>
+                        </div>
+                    `;
+                });
+            } else {
+                html += `<p>No product details available for ${subcategory} yet.</p>`;
+            }
+
+            categoryProductDisplay.innerHTML = html;
+        }
+
+        // --- Add Click Listeners to Subcategory Links ---
+        document.querySelectorAll('nav .dropdown-content a').forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                const subcategory = event.target.getAttribute('data-subcategory');
+                if (subcategory) {
+                    displayProductDetails(subcategory);
+                    categoryProductDisplay.scrollIntoView({behavior: 'smooth'});
+                }
+            });
+        });
+
+        // --- Open Category Page ---
+        function openCategoryPage(category) {
+            const data = categoryData[category] || {subcategories: [], products: {}};
+            let html = `
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>${category} - Daraz</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+                        .container { max-width: 1200px; margin: auto; }
+                        h1 { color: #f85606; }
+                        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+                        .product-card { background: white; padding: 15px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+                        .product-card h3 { font-size: 16px; margin: 0 0 10px; }
+                        .product-card p { margin: 5px 0; }
+                        .price { color: #f85606; font-weight: bold; }
+                        .benefits { color: #007bff; font-style: italic; }
+                    </style>
+                </head>
+                <body>
+                    <div class="container">
+                        <h1>${category}</h1>
+                        <h2>Subcategories</h2>
+                        <ul>
+                            ${data.subcategories.map(sub => `<li>${sub}</li>`).join('')}
+                        </ul>
+                        <h2>Products</h2>
+                        <div class="product-grid">
+                            ${Object.entries(data.products).flatMap(([subcategory, products]) =>
+                products.map(product => `
+                                    <div class="product-card">
+                                        <h3>${product.name}</h3>
+                                        <p>Details: ${product.details}</p>
+                                        <p class="price">Price: ${product.price}</p>
+                                        <p class="benefits">Benefits: ${product.benefits}</p>
+                                    </div>
+                                `)
+            ).join('')}
+                        </div>
+                    </div>
+                </body>
+                </html>
+            `;
+            const newWindow = window.open('', '_blank');
+            newWindow.document.write(html);
+            newWindow.document.close();
+        }
+
+        // --- Open Service Page ---
+        function openServicePage(service) {
+            const data = categoryData[service] || {subcategories: [service], products: {[service]: [{name: `${service} Item`, price: "PKR 1,000", details: `Explore ${service} products`, benefits: "Exclusive offers"}]}};
+            let html = `
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>${service} - Daraz</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+                        .container { max-width: 1200px; margin: auto; }
+                        h1 { color: #f85606; }
+                        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+                        .product-card { background: white; padding: 15px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+                        .product-card h3 { font-size: 16px; margin: 0 0 10px; }
+                        .product-card p { margin: 5px 0; }
+                        .price { color: #f85606; font-weight: bold; }
+                        .benefits { color: #007bff; font-style: italic; }
+                    </style>
+                </head>
+                <body>
+                    <div class="container">
+                        <h1>${service}</h1>
+                        <h2>Subcategories</h2>
+                        <ul>
+                            ${data.subcategories.map(sub => `<li>${sub}</li>`).join('')}
+                        </ul>
+                        <h2>Products</h2>
+                        <div class="product-grid">
+                            ${Object.entries(data.products).flatMap(([subcategory, products]) =>
+                products.map(product => `
+                                    <div class="product-card">
+                                        <h3>${product.name}</h3>
+                                        <p>Details: ${product.details}</p>
+                                        <p class="price">Price: ${product.price}</p>
+                                        <p class="benefits">Benefits: ${product.benefits}</p>
+                                    </div>
+                                `)
+            ).join('')}
+                        </div>
+                    </div>
+                </body>
+                </html>
+            `;
+            const newWindow = window.open('', '_blank');
+            newWindow.document.write(html);
+            newWindow.document.close();
+        }
+    </script>
+
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+    <df-messenger intent="WELCOME" chat-title="Daraz_AI" agent-id="eae34383-c20a-4bcf-bfe1-31fe25954b49"
+        language-code="en"></df-messenger>
+</body>
+
+</html>
